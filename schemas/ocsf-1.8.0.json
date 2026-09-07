@@ -1,0 +1,458 @@
+{
+  "version": "1.8.0",
+  "description": "OCSF 1.8.0 schema used by ash-log for compile-time code generation and runtime validation. Covers the most commonly used event classes, objects, and enumerations defined by the Open Cybersecurity Schema Framework.",
+  "enums": {
+    "severity_id": {
+      "description": "Normalized severity of the event (OCSF severity_id).",
+      "values": [
+        { "id": 0,  "name": "Unknown",        "description": "The event severity is not known." },
+        { "id": 1,  "name": "Informational",  "description": "Informational message. No action required." },
+        { "id": 2,  "name": "Low",            "description": "The user decides if action is needed." },
+        { "id": 3,  "name": "Medium",         "description": "Action is required but not immediately." },
+        { "id": 4,  "name": "High",           "description": "Action is required immediately." },
+        { "id": 5,  "name": "Critical",       "description": "Action is required immediately and the scope is broad." },
+        { "id": 6,  "name": "Fatal",          "description": "An error occurred but it is too late to take remedial action." },
+        { "id": 99, "name": "Other",          "description": "The event severity is not mapped. See the severity attribute." }
+      ]
+    },
+    "status_id": {
+      "description": "Normalized outcome status (OCSF status_id).",
+      "values": [
+        { "id": 0,  "name": "Unknown", "description": "The status is unknown." },
+        { "id": 1,  "name": "Success", "description": "The attempt was successful." },
+        { "id": 2,  "name": "Failure", "description": "The attempt failed." },
+        { "id": 99, "name": "Other",   "description": "The status is not mapped. See the status attribute." }
+      ]
+    },
+    "auth_activity_id": {
+      "description": "Activity that triggered the Authentication event (OCSF 1.8.0).",
+      "values": [
+        { "id": 0,  "name": "Unknown",               "description": "The event activity is unknown." },
+        { "id": 1,  "name": "Logon",                 "description": "A new logon session was requested." },
+        { "id": 2,  "name": "Logoff",                "description": "A logon session was terminated and no longer exists." },
+        { "id": 3,  "name": "AuthenticationTicket",  "description": "A Kerberos authentication ticket (TGT) was requested." },
+        { "id": 4,  "name": "ServiceTicketRequest",  "description": "A Kerberos service ticket was requested." },
+        { "id": 5,  "name": "ServiceTicketRenew",    "description": "A Kerberos service ticket was renewed." },
+        { "id": 6,  "name": "Preauth",               "description": "A preauthentication stage was engaged." },
+        { "id": 7,  "name": "AccountSwitch",         "description": "A utility or service switched the user account." },
+        { "id": 99, "name": "Other",                 "description": "The event activity is not mapped. See the activity_name attribute." }
+      ]
+    },
+    "auth_protocol_id": {
+      "description": "Authentication protocol (OCSF auth_protocol_id).",
+      "values": [
+        { "id": 0,  "name": "Unknown",   "description": "The authentication protocol is unknown." },
+        { "id": 1,  "name": "Ntlm",     "description": "NT LAN Manager (NTLM) protocol." },
+        { "id": 2,  "name": "Kerberos", "description": "Kerberos protocol." },
+        { "id": 3,  "name": "Digest",   "description": "HTTP Digest authentication." },
+        { "id": 4,  "name": "OpenId",   "description": "OpenID Connect." },
+        { "id": 5,  "name": "Saml",     "description": "Security Assertion Markup Language (SAML)." },
+        { "id": 6,  "name": "Oauth20",  "description": "OAuth 2.0." },
+        { "id": 7,  "name": "Pap",      "description": "Password Authentication Protocol." },
+        { "id": 8,  "name": "Chap",     "description": "Challenge-Handshake Authentication Protocol." },
+        { "id": 9,  "name": "Eap",      "description": "Extensible Authentication Protocol." },
+        { "id": 10, "name": "Radius",   "description": "RADIUS protocol." },
+        { "id": 99, "name": "Other",    "description": "The authentication protocol is not mapped." }
+      ]
+    },
+    "logon_type_id": {
+      "description": "Normalized logon type (OCSF logon_type_id).",
+      "values": [
+        { "id": 0,  "name": "Unknown",                  "description": "The logon type is unknown." },
+        { "id": 1,  "name": "Interactive",              "description": "Interactive logon (console)." },
+        { "id": 2,  "name": "Network",                  "description": "Network logon." },
+        { "id": 3,  "name": "Batch",                    "description": "Batch logon." },
+        { "id": 4,  "name": "Service",                  "description": "Service logon." },
+        { "id": 5,  "name": "Unlock",                   "description": "Unlock logon." },
+        { "id": 6,  "name": "NetworkCleartext",         "description": "Network logon with cleartext credentials." },
+        { "id": 7,  "name": "NewCredentials",           "description": "Logon using new credentials (e.g. runas /netonly)." },
+        { "id": 8,  "name": "RemoteInteractive",        "description": "Remote interactive logon (Terminal Services, Remote Desktop)." },
+        { "id": 9,  "name": "CachedInteractive",        "description": "Interactive logon using cached credentials." },
+        { "id": 10, "name": "CachedRemoteInteractive",  "description": "Remote interactive logon using cached credentials." },
+        { "id": 11, "name": "CachedUnlock",             "description": "Cached unlock logon." },
+        { "id": 99, "name": "Other",                    "description": "The logon type is not mapped." }
+      ]
+    },
+    "account_change_activity_id": {
+      "description": "Activity that triggered the Account Change event (OCSF 1.8.0).",
+      "values": [
+        { "id": 0,  "name": "Unknown",         "description": "The event activity is unknown." },
+        { "id": 1,  "name": "Create",          "description": "A user/role was created." },
+        { "id": 2,  "name": "Enable",          "description": "A user/role was enabled." },
+        { "id": 3,  "name": "PasswordChange",  "description": "An attempt was made to change a user account password." },
+        { "id": 4,  "name": "PasswordReset",   "description": "An attempt was made to reset a user account password." },
+        { "id": 5,  "name": "Disable",         "description": "A user/role was disabled." },
+        { "id": 6,  "name": "Delete",          "description": "A user/role was deleted." },
+        { "id": 7,  "name": "AttachPolicy",    "description": "An IAM Policy was attached to a user/role." },
+        { "id": 8,  "name": "DetachPolicy",    "description": "An IAM Policy was detached from a user/role." },
+        { "id": 9,  "name": "Lock",            "description": "A user account was locked out." },
+        { "id": 10, "name": "MfaFactorEnable", "description": "One or more authentication factors were enabled." },
+        { "id": 11, "name": "MfaFactorDisable","description": "One or more authentication factors were disabled." },
+        { "id": 12, "name": "Unlock",          "description": "A user account was unlocked." },
+        { "id": 99, "name": "Other",           "description": "The event activity is not mapped." }
+      ]
+    },
+    "authorize_session_activity_id": {
+      "description": "Activity that triggered the Authorize Session event.",
+      "values": [
+        { "id": 0,  "name": "Unknown", "description": "The event activity is unknown." },
+        { "id": 1,  "name": "Assign",  "description": "Privileges were assigned." },
+        { "id": 2,  "name": "Revoke",  "description": "Privileges were revoked." },
+        { "id": 99, "name": "Other",   "description": "The event activity is not mapped." }
+      ]
+    },
+    "network_activity_id": {
+      "description": "Activity that triggered the Network Activity event (OCSF 1.8.0).",
+      "values": [
+        { "id": 0,  "name": "Unknown", "description": "The event activity is unknown." },
+        { "id": 1,  "name": "Open",    "description": "A new network connection was opened." },
+        { "id": 2,  "name": "Close",   "description": "The network connection was closed." },
+        { "id": 3,  "name": "Reset",   "description": "The network connection was abnormally terminated." },
+        { "id": 4,  "name": "Fail",    "description": "The network connection failed." },
+        { "id": 5,  "name": "Refuse",  "description": "The network connection was refused." },
+        { "id": 6,  "name": "Traffic", "description": "Network traffic report." },
+        { "id": 7,  "name": "Listen",  "description": "A network endpoint began listening for new connections." },
+        { "id": 99, "name": "Other",   "description": "The event activity is not mapped." }
+      ]
+    },
+    "network_direction_id": {
+      "description": "Direction of network traffic.",
+      "values": [
+        { "id": 0,  "name": "Unknown",  "description": "The direction is unknown." },
+        { "id": 1,  "name": "Inbound",  "description": "Traffic is inbound (ingress)." },
+        { "id": 2,  "name": "Outbound", "description": "Traffic is outbound (egress)." },
+        { "id": 3,  "name": "Lateral",  "description": "Lateral (east-west) traffic." },
+        { "id": 99, "name": "Other",    "description": "The direction is not mapped." }
+      ]
+    },
+    "process_activity_id": {
+      "description": "Activity that triggered the Process Activity event (OCSF 1.8.0).",
+      "values": [
+        { "id": 0,  "name": "Unknown",   "description": "The event activity is unknown." },
+        { "id": 1,  "name": "Launch",    "description": "A request to launch another process." },
+        { "id": 2,  "name": "Terminate", "description": "A request to terminate a process." },
+        { "id": 3,  "name": "Open",      "description": "A request to obtain a handle or descriptor to a process." },
+        { "id": 4,  "name": "Inject",    "description": "A request to execute code within the context of a process." },
+        { "id": 5,  "name": "SetUserId", "description": "A request to change user identity via setuid()." },
+        { "id": 99, "name": "Other",     "description": "The event activity is not mapped." }
+      ]
+    },
+    "detection_finding_activity_id": {
+      "description": "Activity that triggered the Detection Finding event.",
+      "values": [
+        { "id": 0,  "name": "Unknown", "description": "The event activity is unknown." },
+        { "id": 1,  "name": "Create",  "description": "A detection finding was created." },
+        { "id": 2,  "name": "Update",  "description": "A detection finding was updated." },
+        { "id": 3,  "name": "Close",   "description": "A detection finding was closed." },
+        { "id": 99, "name": "Other",   "description": "The event activity is not mapped." }
+      ]
+    },
+    "vulnerability_finding_activity_id": {
+      "description": "Activity that triggered the Vulnerability Finding event.",
+      "values": [
+        { "id": 0,  "name": "Unknown", "description": "The event activity is unknown." },
+        { "id": 1,  "name": "Create",  "description": "A vulnerability finding was created." },
+        { "id": 2,  "name": "Update",  "description": "A vulnerability finding was updated." },
+        { "id": 3,  "name": "Close",   "description": "A vulnerability finding was closed." },
+        { "id": 99, "name": "Other",   "description": "The event activity is not mapped." }
+      ]
+    },
+    "api_activity_id": {
+      "description": "Activity that triggered the API Activity event (OCSF 1.8.0).",
+      "values": [
+        { "id": 0,  "name": "Unknown", "description": "The event activity is unknown." },
+        { "id": 1,  "name": "Create",  "description": "The API call pertains to a create activity." },
+        { "id": 2,  "name": "Read",    "description": "The API call pertains to a read activity." },
+        { "id": 3,  "name": "Update",  "description": "The API call pertains to an update activity." },
+        { "id": 4,  "name": "Delete",  "description": "The API call pertains to a delete activity." },
+        { "id": 99, "name": "Other",   "description": "The event activity is not mapped." }
+      ]
+    }
+  },
+  "objects": {
+    "product": {
+      "description": "Information about the software product that generated the event.",
+      "fields": [
+        { "name": "name",        "type": "string",  "required": true,  "description": "Product name." },
+        { "name": "vendor_name", "type": "string",  "required": true,  "description": "Vendor or publisher name." },
+        { "name": "version",     "type": "string",  "required": false, "description": "Product version string." },
+        { "name": "url_string",  "type": "string",  "required": false, "description": "URL to the product home page." },
+        { "name": "lang",        "type": "string",  "required": false, "description": "Language tag (BCP 47) of the product interface." }
+      ]
+    },
+    "metadata": {
+      "description": "Metadata about the event (present in every OCSF event).",
+      "fields": [
+        { "name": "version",         "type": "string",       "required": true,  "description": "OCSF schema version (e.g. 1.8.0)." },
+        { "name": "product",         "type": "object",       "object_ref": "product", "required": true,  "description": "Product that generated the event." },
+        { "name": "uid",             "type": "string",       "required": false, "description": "Unique metadata record identifier." },
+        { "name": "log_name",        "type": "string",       "required": false, "description": "Name of the log." },
+        { "name": "log_provider",    "type": "string",       "required": false, "description": "Name of the log provider." },
+        { "name": "log_version",     "type": "string",       "required": false, "description": "Version of the log format." },
+        { "name": "labels",          "type": "string_array", "required": false, "description": "Arbitrary labels attached to the event." },
+        { "name": "correlation_uid", "type": "string",       "required": false, "description": "Unique correlation ID spanning a request chain." }
+      ]
+    },
+    "user": {
+      "description": "A user or service account.",
+      "fields": [
+        { "name": "uid",       "type": "string", "required": false, "description": "User identifier (e.g. SID, UUID, LDAP DN)." },
+        { "name": "name",      "type": "string", "required": false, "description": "Short username (login name)." },
+        { "name": "email_addr","type": "string", "required": false, "description": "Email address." },
+        { "name": "type_id",   "type": "i32",    "required": false, "description": "Normalized user type ID." },
+        { "name": "type_name", "type": "string", "required": false, "description": "User type name (human-readable)." },
+        { "name": "domain",    "type": "string", "required": false, "description": "Domain the user belongs to." },
+        { "name": "full_name", "type": "string", "required": false, "description": "Full display name of the user." }
+      ]
+    },
+    "group": {
+      "description": "A group or role.",
+      "fields": [
+        { "name": "uid",       "type": "string", "required": false, "description": "Group identifier." },
+        { "name": "name",      "type": "string", "required": false, "description": "Group name." },
+        { "name": "type_id",   "type": "i32",    "required": false, "description": "Normalized group type ID." },
+        { "name": "type_name", "type": "string", "required": false, "description": "Group type name." }
+      ]
+    },
+    "process": {
+      "description": "A running or recorded process.",
+      "fields": [
+        { "name": "pid",               "type": "i64",    "required": false, "description": "OS-level process identifier." },
+        { "name": "name",              "type": "string", "required": false, "description": "Process name." },
+        { "name": "cmd_line",          "type": "string", "required": false, "description": "Full command line that launched the process." },
+        { "name": "uid",               "type": "string", "required": false, "description": "Unique process identifier (UUID or similar)." },
+        { "name": "file_path",         "type": "string", "required": false, "description": "Absolute path to the executable image." },
+        { "name": "parent_process_pid","type": "i64",    "required": false, "description": "Parent process PID." }
+      ]
+    },
+    "session": {
+      "description": "An authenticated or interactive session.",
+      "fields": [
+        { "name": "uid",       "type": "string", "required": false, "description": "Session unique identifier." },
+        { "name": "uid_alt",   "type": "string", "required": false, "description": "Alternate session identifier." },
+        { "name": "is_remote", "type": "bool",   "required": false, "description": "Indicates whether the session is remote." },
+        { "name": "issuer",    "type": "string", "required": false, "description": "Issuer of the session credential." }
+      ]
+    },
+    "actor": {
+      "description": "The entity (user/role/process) that initiated the event.",
+      "fields": [
+        { "name": "user",           "type": "object",       "object_ref": "user",    "required": false, "description": "The user that initiated the event." },
+        { "name": "process",        "type": "object",       "object_ref": "process", "required": false, "description": "The process that initiated the event." },
+        { "name": "session",        "type": "object",       "object_ref": "session", "required": false, "description": "Session associated with the actor." },
+        { "name": "authorizations", "type": "string_array", "required": false,       "description": "Authorization claims the actor presented." }
+      ]
+    },
+    "network_endpoint": {
+      "description": "A network endpoint (host + port).",
+      "fields": [
+        { "name": "ip",       "type": "string", "required": false, "description": "IP address (v4 or v6)." },
+        { "name": "port",     "type": "i32",    "required": false, "description": "TCP/UDP port number." },
+        { "name": "hostname", "type": "string", "required": false, "description": "DNS host name." },
+        { "name": "domain",   "type": "string", "required": false, "description": "Domain name." },
+        { "name": "mac",      "type": "string", "required": false, "description": "MAC address." }
+      ]
+    },
+    "device": {
+      "description": "A physical or virtual device (host).",
+      "fields": [
+        { "name": "uid",      "type": "string", "required": false, "description": "Device unique identifier." },
+        { "name": "name",     "type": "string", "required": false, "description": "Device name." },
+        { "name": "hostname", "type": "string", "required": false, "description": "Hostname of the device." },
+        { "name": "ip",       "type": "string", "required": false, "description": "Primary IP address." },
+        { "name": "os_name",  "type": "string", "required": false, "description": "Operating system name." },
+        { "name": "type_id",  "type": "i32",    "required": false, "description": "Normalized device type ID." }
+      ]
+    },
+    "finding_info": {
+      "description": "Descriptive metadata about a security finding.",
+      "fields": [
+        { "name": "uid",     "type": "string", "required": true,  "description": "Unique identifier for the finding (e.g. CVE ID, rule ID)." },
+        { "name": "title",   "type": "string", "required": true,  "description": "Short, human-readable title." },
+        { "name": "desc",    "type": "string", "required": false, "description": "Detailed description of the finding." },
+        { "name": "type_uid","type": "i32",    "required": false, "description": "Finding type UID." },
+        { "name": "src_url", "type": "string", "required": false, "description": "URL to more information about the finding." }
+      ]
+    },
+    "vulnerability": {
+      "description": "Details about a specific vulnerability.",
+      "fields": [
+        { "name": "cve_uid",     "type": "string",       "required": false, "description": "CVE identifier." },
+        { "name": "desc",        "type": "string",       "required": false, "description": "Description of the vulnerability." },
+        { "name": "severity",    "type": "string",       "required": false, "description": "Severity of the vulnerability." },
+        { "name": "fix_available","type": "bool",        "required": false, "description": "Indicates whether a fix is available." },
+        { "name": "references",  "type": "string_array", "required": false, "description": "List of reference URLs." }
+      ]
+    },
+    "api": {
+      "description": "Details about an API call.",
+      "fields": [
+        { "name": "service_name", "type": "string", "required": false, "description": "Name of the API service." },
+        { "name": "operation",    "type": "string", "required": false, "description": "Name of the API operation." },
+        { "name": "version",      "type": "string", "required": false, "description": "API version." },
+        { "name": "request_uid",  "type": "string", "required": false, "description": "Unique identifier of the API request." }
+      ]
+    },
+    "http_request": {
+      "description": "Details about an HTTP request.",
+      "fields": [
+        { "name": "http_method", "type": "string", "required": false, "description": "HTTP method (GET, POST, PUT, DELETE, etc.)." },
+        { "name": "url_string",  "type": "string", "required": false, "description": "Request URL." },
+        { "name": "user_agent",  "type": "string", "required": false, "description": "User-Agent header." },
+        { "name": "referrer",    "type": "string", "required": false, "description": "Referer header." },
+        { "name": "uid",         "type": "string", "required": false, "description": "Unique request identifier." },
+        { "name": "version",     "type": "string", "required": false, "description": "HTTP protocol version." }
+      ]
+    },
+    "http_response": {
+      "description": "Details about an HTTP response.",
+      "fields": [
+        { "name": "code",        "type": "i32",    "required": false, "description": "HTTP status code." },
+        { "name": "status",      "type": "string", "required": false, "description": "HTTP status text." },
+        { "name": "content_type","type": "string", "required": false, "description": "Content-Type header." },
+        { "name": "length",      "type": "i64",    "required": false, "description": "Content-Length in bytes." }
+      ]
+    }
+  },
+  "event_classes": {
+    "authentication": {
+      "class_uid": 3002,
+      "category_uid": 3,
+      "description": "Authentication events report authentication session activities, including logon and logoff attempts and other key stages within the authentication process (OCSF 1.8.0).",
+      "activity_enum": "auth_activity_id",
+      "fields": [
+        { "name": "activity_id",      "type": "enum",   "enum_ref": "auth_activity_id",  "required": true,  "description": "Activity that triggered the event." },
+        { "name": "actor",            "type": "object", "object_ref": "actor",            "required": false, "description": "The actor that initiated the authentication." },
+        { "name": "user",             "type": "object", "object_ref": "user",             "required": false, "description": "The subject user to authenticate." },
+        { "name": "src_endpoint",     "type": "object", "object_ref": "network_endpoint", "required": false, "description": "Source network endpoint." },
+        { "name": "dst_endpoint",     "type": "object", "object_ref": "network_endpoint", "required": false, "description": "Endpoint to which authentication was targeted." },
+        { "name": "session",          "type": "object", "object_ref": "session",          "required": false, "description": "Authenticated session associated with the event." },
+        { "name": "auth_protocol",    "type": "string",                                   "required": false, "description": "Authentication protocol name." },
+        { "name": "auth_protocol_id", "type": "enum",   "enum_ref": "auth_protocol_id",  "required": false, "description": "Normalized authentication protocol ID." },
+        { "name": "logon_type",       "type": "string",                                   "required": false, "description": "Logon type name." },
+        { "name": "logon_type_id",    "type": "enum",   "enum_ref": "logon_type_id",     "required": false, "description": "Normalized logon type ID." },
+        { "name": "is_cleartext",     "type": "bool",                                     "required": false, "description": "Indicates whether credentials were passed in cleartext." },
+        { "name": "is_mfa",           "type": "bool",                                     "required": false, "description": "Indicates whether multi-factor authentication was used." },
+        { "name": "is_new_logon",     "type": "bool",                                     "required": false, "description": "Indicates whether this was a new logon session." },
+        { "name": "is_remote",        "type": "bool",                                     "required": false, "description": "Indicates whether authentication is over a remote connection." },
+        { "name": "status",           "type": "string",                                   "required": false, "description": "Outcome description." },
+        { "name": "status_id",        "type": "enum",   "enum_ref": "status_id",         "required": false, "description": "Normalized outcome status." }
+      ]
+    },
+    "account_change": {
+      "class_uid": 3001,
+      "category_uid": 3,
+      "description": "Account Change events report when specific user account management tasks are performed, such as a user/role being created, changed, deleted, or locked (OCSF 1.8.0).",
+      "activity_enum": "account_change_activity_id",
+      "fields": [
+        { "name": "activity_id", "type": "enum",   "enum_ref": "account_change_activity_id", "required": true,  "description": "Activity that triggered the event." },
+        { "name": "actor",       "type": "object", "object_ref": "actor",                    "required": false, "description": "The actor that performed the account change." },
+        { "name": "user",        "type": "object", "object_ref": "user",                     "required": false, "description": "The user that was a target of the activity." },
+        { "name": "status",      "type": "string",                                            "required": false, "description": "Outcome description." },
+        { "name": "status_id",   "type": "enum",   "enum_ref": "status_id",                 "required": false, "description": "Normalized outcome status." }
+      ]
+    },
+    "authorize_session": {
+      "class_uid": 3003,
+      "category_uid": 3,
+      "description": "Authorize Session events track the assignment or revocation of privileges on an authenticated session.",
+      "activity_enum": "authorize_session_activity_id",
+      "fields": [
+        { "name": "activity_id",  "type": "enum",         "enum_ref": "authorize_session_activity_id", "required": true,  "description": "Activity that triggered the event." },
+        { "name": "actor",        "type": "object",       "object_ref": "actor",                       "required": false, "description": "The actor that initiated the authorization." },
+        { "name": "user",         "type": "object",       "object_ref": "user",                        "required": false, "description": "The user whose session was authorized." },
+        { "name": "src_endpoint", "type": "object",       "object_ref": "network_endpoint",            "required": false, "description": "Source network endpoint." },
+        { "name": "dst_endpoint", "type": "object",       "object_ref": "network_endpoint",            "required": false, "description": "Destination network endpoint." },
+        { "name": "privileges",   "type": "string_array",                                              "required": false, "description": "Privileges assigned or revoked." },
+        { "name": "status",       "type": "string",                                                    "required": false, "description": "Outcome description." },
+        { "name": "status_id",    "type": "enum",         "enum_ref": "status_id",                    "required": false, "description": "Normalized outcome status." }
+      ]
+    },
+    "network_activity": {
+      "class_uid": 4001,
+      "category_uid": 4,
+      "description": "Network Activity events report network connection and traffic activity (OCSF 1.8.0).",
+      "activity_enum": "network_activity_id",
+      "fields": [
+        { "name": "activity_id",    "type": "enum",   "enum_ref": "network_activity_id",   "required": true,  "description": "Activity that triggered the event." },
+        { "name": "src_endpoint",   "type": "object", "object_ref": "network_endpoint",    "required": false, "description": "Source network endpoint (typically the initiator)." },
+        { "name": "dst_endpoint",   "type": "object", "object_ref": "network_endpoint",    "required": false, "description": "Destination network endpoint (typically the responder)." },
+        { "name": "connection_uid", "type": "string",                                      "required": false, "description": "Unique connection identifier." },
+        { "name": "direction",      "type": "string",                                      "required": false, "description": "Network traffic direction name." },
+        { "name": "direction_id",   "type": "enum",   "enum_ref": "network_direction_id", "required": false, "description": "Normalized traffic direction ID." },
+        { "name": "protocol_name",  "type": "string",                                     "required": false, "description": "Transport layer protocol (e.g. TCP, UDP)." },
+        { "name": "protocol_num",   "type": "i32",                                        "required": false, "description": "IANA protocol number." },
+        { "name": "bytes_in",       "type": "i64",                                        "required": false, "description": "Bytes received." },
+        { "name": "bytes_out",      "type": "i64",                                        "required": false, "description": "Bytes sent." },
+        { "name": "packets_in",     "type": "i64",                                        "required": false, "description": "Packets received." },
+        { "name": "packets_out",    "type": "i64",                                        "required": false, "description": "Packets sent." },
+        { "name": "status",         "type": "string",                                     "required": false, "description": "Connection status description." },
+        { "name": "status_id",      "type": "enum",   "enum_ref": "status_id",           "required": false, "description": "Normalized connection status." }
+      ]
+    },
+    "process_activity": {
+      "class_uid": 1007,
+      "category_uid": 1,
+      "description": "Process Activity events report when a process launches, injects, opens, or terminates another process (OCSF 1.8.0).",
+      "activity_enum": "process_activity_id",
+      "fields": [
+        { "name": "activity_id", "type": "enum",   "enum_ref": "process_activity_id", "required": true,  "description": "Activity that triggered the event." },
+        { "name": "actor",       "type": "object", "object_ref": "actor",             "required": false, "description": "The actor that performed the activity on the target process." },
+        { "name": "process",     "type": "object", "object_ref": "process",           "required": false, "description": "The process that was launched, injected into, opened, or terminated." },
+        { "name": "device",      "type": "object", "object_ref": "device",            "required": false, "description": "Device on which the event occurred." },
+        { "name": "status",      "type": "string",                                    "required": false, "description": "Outcome description." },
+        { "name": "status_id",   "type": "enum",   "enum_ref": "status_id",          "required": false, "description": "Normalized outcome status." },
+        { "name": "exit_code",   "type": "i32",                                       "required": false, "description": "Process exit code (for Terminate activity)." }
+      ]
+    },
+    "detection_finding": {
+      "class_uid": 2004,
+      "category_uid": 2,
+      "description": "Detection Finding events describe detections or alerts generated by security products using correlation engines or detection engines (OCSF 1.8.0).",
+      "activity_enum": "detection_finding_activity_id",
+      "fields": [
+        { "name": "activity_id",    "type": "enum",   "enum_ref": "detection_finding_activity_id", "required": true,  "description": "Activity that triggered the event." },
+        { "name": "finding_info",   "type": "object", "object_ref": "finding_info",                "required": true,  "description": "Details about the detection finding." },
+        { "name": "actor",          "type": "object", "object_ref": "actor",                       "required": false, "description": "The actor associated with the finding." },
+        { "name": "device",         "type": "object", "object_ref": "device",                      "required": false, "description": "Device where the finding was made." },
+        { "name": "confidence",     "type": "string",                                              "required": false, "description": "Confidence level description." },
+        { "name": "confidence_id",  "type": "i32",                                                 "required": false, "description": "Normalized confidence level ID." },
+        { "name": "is_alert",       "type": "bool",                                                "required": false, "description": "Indicates that the event is considered an alertable signal." },
+        { "name": "status",         "type": "string",                                              "required": false, "description": "Finding status description." },
+        { "name": "status_id",      "type": "enum",   "enum_ref": "status_id",                   "required": false, "description": "Normalized finding status." }
+      ]
+    },
+    "vulnerability_finding": {
+      "class_uid": 2002,
+      "category_uid": 2,
+      "description": "Vulnerability Finding events report weaknesses in an information system that could be exploited by a threat source (OCSF 1.8.0).",
+      "activity_enum": "vulnerability_finding_activity_id",
+      "fields": [
+        { "name": "activity_id",    "type": "enum",         "enum_ref": "vulnerability_finding_activity_id", "required": true,  "description": "Activity that triggered the event." },
+        { "name": "finding_info",   "type": "object",       "object_ref": "finding_info",                    "required": true,  "description": "Details about the vulnerability finding." },
+        { "name": "vulnerabilities","type": "object_array", "object_ref": "vulnerability",                   "required": false, "description": "List of vulnerabilities associated with the finding." },
+        { "name": "actor",          "type": "object",       "object_ref": "actor",                           "required": false, "description": "The actor associated with the finding." },
+        { "name": "device",         "type": "object",       "object_ref": "device",                          "required": false, "description": "Device where the vulnerability was found." },
+        { "name": "status",         "type": "string",                                                        "required": false, "description": "Finding status description." },
+        { "name": "status_id",      "type": "enum",         "enum_ref": "status_id",                        "required": false, "description": "Normalized finding status." }
+      ]
+    },
+    "api_activity": {
+      "class_uid": 6003,
+      "category_uid": 6,
+      "description": "API Activity events describe general CRUD API activities (OCSF 1.8.0).",
+      "activity_enum": "api_activity_id",
+      "fields": [
+        { "name": "activity_id",    "type": "enum",   "enum_ref": "api_activity_id",   "required": true,  "description": "Activity that triggered the event." },
+        { "name": "actor",          "type": "object", "object_ref": "actor",           "required": false, "description": "The actor that made the API call." },
+        { "name": "api",            "type": "object", "object_ref": "api",             "required": false, "description": "Details about the API call." },
+        { "name": "src_endpoint",   "type": "object", "object_ref": "network_endpoint","required": false, "description": "Details about the source of the API activity." },
+        { "name": "dst_endpoint",   "type": "object", "object_ref": "network_endpoint","required": false, "description": "Details about the destination of the API activity." },
+        { "name": "http_request",   "type": "object", "object_ref": "http_request",   "required": false, "description": "Details about the underlying HTTP request." },
+        { "name": "http_response",  "type": "object", "object_ref": "http_response",  "required": false, "description": "Details about the underlying HTTP response." },
+        { "name": "status",         "type": "string",                                 "required": false, "description": "API call outcome description." },
+        { "name": "status_id",      "type": "enum",   "enum_ref": "status_id",       "required": false, "description": "Normalized outcome status." }
+      ]
+    }
+  }
+}
